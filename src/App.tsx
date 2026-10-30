@@ -35,6 +35,7 @@ import { TradesView } from './views/TradesView';
 import { CarteiraView } from './views/CarteiraView';
 import { ProtocolView } from './views/ProtocolView';
 import { SetupsView } from './views/SetupsView';
+import { ScienceView } from './views/ScienceView';
 
 const DEFAULT_BROKERS: Broker[] = [
   { n: 'Bitget', c: '#2dd4bf' },
@@ -64,10 +65,10 @@ const DEFAULT_CFG: SystemConfig = {
 
 export const App: React.FC = () => {
   // Navigation
-  const [tab, setTab] = useState<'R' | 'T' | 'C' | 'P' | 'S'>(() => {
+  const [tab, setTab] = useState<'R' | 'T' | 'C' | 'P' | 'S' | 'B'>(() => {
     try {
       const saved = localStorage.getItem('gr_tab');
-      if (saved === 'R' || saved === 'T' || saved === 'C' || saved === 'P' || saved === 'S') {
+      if (saved === 'R' || saved === 'T' || saved === 'C' || saved === 'P' || saved === 'S' || saved === 'B') {
         return saved;
       }
     } catch (e) {}
@@ -494,9 +495,16 @@ export const App: React.FC = () => {
 
       <div className="wrap">
         <header>
-          <div>
-            <h1>Gestão de risco</h1>
-            <p>Teto de perda acumulada por semana e por mês, calculado sobre o capital da banca.</p>
+          <div className="header-brand">
+            <img
+              src="./assets/aistudio/le-tranger_dfe48d50.jpg"
+              alt="Ícone do App"
+              className="app-logo-badge"
+            />
+            <div>
+              <h1>Gestão de risco</h1>
+              <p>Teto de perda acumulada por semana e por mês, calculado sobre o capital da banca.</p>
+            </div>
           </div>
           <div className="today">
             {new Date().toLocaleDateString('pt-BR', {
@@ -543,6 +551,13 @@ export const App: React.FC = () => {
             onClick={() => isProtoComplete && setTab('S')}
           >
             Setups
+          </button>
+          <button
+            id="tabB"
+            className={tab === 'B' ? 'on' : ''}
+            onClick={() => setTab('B')}
+          >
+            BioCiência
           </button>
         </nav>
 
@@ -628,6 +643,8 @@ export const App: React.FC = () => {
             askConfirm={askConfirm}
           />
         )}
+
+        {tab === 'B' && <ScienceView />}
       </div>
 
       {/* Confirmation Modal */}

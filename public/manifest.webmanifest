@@ -1,0 +1,17 @@
+{
+  "name": "Gestão de Risco",
+  "short_name": "Gestão Risco",
+  "description": "Teto de perda acumulada por semana e por mês, calculado sobre o capital da banca.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "./assets/aistudio/le-tranger_dfe48d50.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

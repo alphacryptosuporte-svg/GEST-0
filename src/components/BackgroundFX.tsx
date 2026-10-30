@@ -13,7 +13,6 @@ export const BACKGROUND_PHOTOS: BackgroundPhoto[] = [
   { id: '02', title: 'Píer Infinito', url: `${baseUrl}02_d2059371.jpg` },
   { id: '03', title: 'Dunas do Deserto', url: `${baseUrl}03_a8ffd669.jpg` },
   { id: '04', title: 'Cachoeira Skógafoss', url: `${baseUrl}04_51a369ee.jpg` },
-  { id: '06', title: 'Urso Polar Ártico', url: `${baseUrl}06_883100cf.jpg` },
   { id: '07', title: 'Torre Eiffel', url: `${baseUrl}07_5e6e81b2.jpg` },
   { id: '08', title: 'Elefante de Amboseli', url: `${baseUrl}08_c5e3d5c4.jpg` },
   { id: '09', title: 'Monte Everest', url: `${baseUrl}09_be43390e.jpg` },

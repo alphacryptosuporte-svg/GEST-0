@@ -102,6 +102,15 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
+// Remove any legacy service workers that might cache old versions
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const r of registrations) {
+      r.unregister();
+    }
+  }).catch(() => {});
+}
+
 const rootElement = document.getElementById('root');
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
@@ -111,4 +120,7 @@ if (rootElement) {
       </ErrorBoundary>
     </React.StrictMode>
   );
+  try {
+    (window as any).__APP_MOUNTED__ = true;
+  } catch (e) {}
 }

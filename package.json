@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
-    "build": "tsc && vite build && rm -rf docs && cp -r dist docs",
+    "build": "tsc && vite build && cp -r dist/assets . && cp -r dist docs",
     "preview": "vite preview --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
+    "3dmol": "^2.5.5",
+    "lucide-react": "^1.65.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "xlsx": "^0.18.5"
