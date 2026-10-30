@@ -73,17 +73,9 @@ header p{color:var(--ink2);margin-top:2px}
 @media (max-width:620px){.cards,.rules{grid-template-columns:1fr}.wrap{padding:20px 16px}header{flex-direction:column;align-items:flex-start}.today{text-align:left}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-.pulse{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;display:grid;place-items:center}
-.pulse::before{content:"";position:absolute;width:46vmin;height:46vmin;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,.22),rgba(0,229,255,0) 68%);animation:breathe 4s ease-in-out infinite}
-.pulse i{position:absolute;width:50vmin;height:50vmin;border-radius:50%;border:1px solid rgba(0,229,255,.32);opacity:0;animation:ring 9s cubic-bezier(.2,.6,.3,1) infinite}
-.pulse i:nth-child(2){animation-delay:3s}.pulse i:nth-child(3){animation-delay:6s}
-@keyframes ring{0%{transform:scale(.3);opacity:.7}100%{transform:scale(3.2);opacity:0}}
-@keyframes breathe{0%,100%{transform:scale(.85);opacity:.55}50%{transform:scale(1.15);opacity:1}}
-body.locked .pulse::before{background:radial-gradient(circle,rgba(255,48,48,.3),rgba(255,48,48,0) 68%);animation-duration:1.5s}
-body.locked .pulse i{border-color:rgba(255,48,48,.45)}
-.wrap{position:relative;z-index:1}
-.card{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-h1{font-size:30px;font-weight:700;letter-spacing:-.03em}
+.wrap{position:relative;z-index:10}
+.card{backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);background:var(--card);border:1px solid rgba(255,255,255,0.12)}
+h1{font-size:30px;font-weight:700;letter-spacing:-.03em;text-shadow:0 2px 12px rgba(0,0,0,0.85)}
 .go{color:#000}
 .seg button.on{background:#fff;color:#000!important;box-shadow:none}
 .ring .t{stroke:var(--track)}
@@ -96,7 +88,6 @@ h1{font-size:30px;font-weight:700;letter-spacing:-.03em}
 .chips button:hover,.ghost:hover{border-color:#fff;color:#fff}
 .field input:focus{border-color:#fff}
 :focus-visible{outline-color:#fff}
-@media (prefers-reduced-motion:reduce){.pulse::before,.pulse i{animation:none!important}.pulse i{opacity:.12}}
 
 .tabs{display:flex;gap:6px;margin-bottom:16px}
 .tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink2);padding:9px 20px;border-radius:99px;font:700 13px var(--f);cursor:pointer}
@@ -184,7 +175,7 @@ tr.open.bc td{color:var(--ink)}tr.open.bc td small{color:var(--ink3)}tr.open.bc 
 tr.open td.pos,tr.open.bc td.pos{color:#22e5ff}tr.open td.neg,tr.open.bc td.neg{color:var(--bad)}
 
 /* ===== Refinamento visual ===== */
-:root{--card:rgba(14,14,16,.68);--line:#26262a;--line2:#34343a;--cy:#22e5ff;--r:20px;--sh:0 10px 30px -12px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.05)}
+:root{--card:rgba(11,13,17,.88);--line:rgba(255,255,255,.12);--line2:rgba(255,255,255,.22);--cy:#22e5ff;--r:20px;--sh:0 14px 34px -10px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.08)}
 ::selection{background:rgba(34,229,255,.3)}
 body{background:radial-gradient(1200px 600px at 85% -10%,rgba(34,229,255,.06),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(255,255,255,.04),transparent 60%),#000;background-attachment:fixed;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .wrap{padding-top:40px}
@@ -249,13 +240,72 @@ input[type=date],input[type=time]{color-scheme:dark}
 @media (max-width:620px){.wrap{padding:20px 14px 40px}h1{font-size:26px}.card{padding:18px;border-radius:18px}.tabs{width:100%}.tabs button{padding:9px 16px;flex:1}.mid b{font-size:30px}td{padding:10px 8px}}
 @media (prefers-reduced-motion:reduce){#vRisco,#vTrades,#vCart,#vProto,#vSpec,#modal .card{animation:none!important}.sys:hover{transform:none}}
 
-/* ===== Fundo animado diário ===== */
+/* ===== Papel de Parede 4K - Rotação a cada 10s ===== */
 .pulse{display:none}
-body{background:#05060a!important}
-#bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+body{background:#000!important;position:relative}
+
+.bg-app-wallpaper{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.bg-app-images{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.bg-app-slide{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center center;
+  background-repeat:no-repeat;
+  image-rendering:high-quality;
+  image-rendering:-webkit-optimize-contrast;
+  opacity:0;
+  transform:scale(1.0);
+  filter:contrast(1.04) brightness(0.95);
+  transition:opacity 1.8s ease-in-out;
+  will-change:opacity;
+}
+
+.bg-app-slide.is-active{
+  opacity:1;
+}
+
+/* Camada estática e equilibrada para destacar as informações sem ocultar as fotos */
+.bg-app-scrim{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:rgba(0,0,0,0.46);
+  box-shadow:inset 0 0 140px rgba(0,0,0,0.7);
+}
+
+.bg-app-locked-scrim{
+  position:fixed;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:rgba(180,0,0,0.22);
+}
+
+
+
+
 
 /* ===== Carteiras / legibilidade ===== */
-:root{--card:rgba(12,12,14,.8)}
+:root{--card:rgba(11,13,17,.88)}
 .cols2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .cbox{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--soft)}
 .cbox h4{font-size:15px;font-weight:700;margin-bottom:10px}.cbox h5{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 6px;font-weight:600}
