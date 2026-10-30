@@ -1,0 +1,6 @@
+{
+  "name": "Gestão de Risco",
+  "description": "Teto de perda acumulada por semana e por mês, calculado sobre o capital da banca, com controle de trades, carteiras USD e BRL, setups e protocolo diário.",
+  "prompt": "Gestão de risco e diário de trading com controle de tetos de perda, carteiras, setups e protocolo",
+  "majorCapabilities": []
+}
