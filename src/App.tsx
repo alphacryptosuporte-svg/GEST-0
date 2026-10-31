@@ -35,7 +35,6 @@ import { TradesView } from './views/TradesView';
 import { CarteiraView } from './views/CarteiraView';
 import { ProtocolView } from './views/ProtocolView';
 import { SetupsView } from './views/SetupsView';
-import { ScienceView } from './views/ScienceView';
 
 const DEFAULT_BROKERS: Broker[] = [
   { n: 'Bitget', c: '#2dd4bf' },
@@ -65,10 +64,10 @@ const DEFAULT_CFG: SystemConfig = {
 
 export const App: React.FC = () => {
   // Navigation
-  const [tab, setTab] = useState<'R' | 'T' | 'C' | 'P' | 'S' | 'B'>(() => {
+  const [tab, setTab] = useState<'R' | 'T' | 'C' | 'P' | 'S'>(() => {
     try {
       const saved = localStorage.getItem('gr_tab');
-      if (saved === 'R' || saved === 'T' || saved === 'C' || saved === 'P' || saved === 'S' || saved === 'B') {
+      if (saved === 'R' || saved === 'T' || saved === 'C' || saved === 'P' || saved === 'S') {
         return saved;
       }
     } catch (e) {}
@@ -497,9 +496,16 @@ export const App: React.FC = () => {
         <header>
           <div className="header-brand">
             <img
-              src="./assets/aistudio/le-tranger_dfe48d50.jpg"
+              src={(((import.meta as any).env?.BASE_URL) || './').replace(/\/$/, '') + '/assets/aistudio/le-tranger_dfe48d50.jpg'}
               alt="Ícone do App"
               className="app-logo-badge"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (!target.dataset.tried) {
+                  target.dataset.tried = 'true';
+                  target.src = './assets/aistudio/le-tranger_dfe48d50.jpg';
+                }
+              }}
             />
             <div>
               <h1>Gestão de risco</h1>
@@ -551,13 +557,6 @@ export const App: React.FC = () => {
             onClick={() => isProtoComplete && setTab('S')}
           >
             Setups
-          </button>
-          <button
-            id="tabB"
-            className={tab === 'B' ? 'on' : ''}
-            onClick={() => setTab('B')}
-          >
-            BioCiência
           </button>
         </nav>
 
@@ -643,8 +642,6 @@ export const App: React.FC = () => {
             askConfirm={askConfirm}
           />
         )}
-
-        {tab === 'B' && <ScienceView />}
       </div>
 
       {/* Confirmation Modal */}

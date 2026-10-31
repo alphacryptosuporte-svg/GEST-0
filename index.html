@@ -11,25 +11,16 @@
   <link rel="icon" type="image/jpeg" href="./assets/aistudio/le-tranger_dfe48d50.jpg">
   <link rel="apple-touch-icon" href="./assets/aistudio/le-tranger_dfe48d50.jpg">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./assets/app.css?v=3">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Se acessado por subpasta de repositório sem barra final (ex: /GEST-0), normaliza para /GEST-0/
+    if (window.location.pathname.length > 1 && !window.location.pathname.endsWith('/') && !window.location.pathname.split('/').pop().includes('.')) {
+      window.location.replace(window.location.pathname + '/' + window.location.search + window.location.hash);
+    }
+  </script>
 </head>
 <body>
   <div id="root"></div>
-
-  <!-- Vite Dev Entry Point -->
   <script type="module" src="/src/main.tsx"></script>
-
-  <!-- GitHub Pages & Static Server Auto-Loader: se /src/main.tsx não montar o app, carrega ./assets/app.js -->
-  <script type="module">
-    setTimeout(function() {
-      if (!window.__APP_MOUNTED__ && !document.querySelector('.wrap')) {
-        var s = document.createElement('script');
-        s.type = 'module';
-        s.src = './assets/app.js?v=3';
-        document.body.appendChild(s);
-      }
-    }, 100);
-  </script>
 </body>
 </html>
